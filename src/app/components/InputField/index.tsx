@@ -1,10 +1,5 @@
 import React from "react";
-
-interface InputFieldProps {
-  placeholder: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
-}
+import { InputFieldProps } from "@/app/interfaces/IInputField";
 
 const InputField = ({ placeholder, onChange, value }: InputFieldProps) => {
   return (

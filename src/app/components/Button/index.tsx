@@ -1,10 +1,6 @@
-interface Button {
-  label: string;
-  className: string;
-  onClick: () => void;
-}
+import { ButtonProps } from "@/app/interfaces/IButton";
 
-export const Buttons = ({ label, className, onClick }: Button) => (
+export const Button = ({ label, className, onClick }: ButtonProps) => (
   <>
     <button className={className} onClick={onClick}>
       {label}
@@ -12,4 +8,4 @@ export const Buttons = ({ label, className, onClick }: Button) => (
   </>
 );
 
-export default Buttons;
+export default Button;

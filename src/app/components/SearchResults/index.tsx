@@ -1,15 +1,6 @@
 import React from "react";
 import City from "../City";
-
-interface SearchResultsProps {
-  cities: {
-    name: string;
-    country: string;
-    region: string;
-    url: string;
-  }[];
-  clickCity: (url: string) => void;
-}
+import { SearchResultsProps } from "@/app/interfaces/ISearchResults";
 
 const SearchResults = ({ cities, clickCity }: SearchResultsProps) => {
   return (

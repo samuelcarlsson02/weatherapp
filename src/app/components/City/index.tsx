@@ -1,16 +1,5 @@
 import React from "react";
-
-interface City {
-  name: string;
-  country: string;
-  region: string;
-  url: string;
-}
-
-interface CityProps {
-  city: City;
-  onClick: (url: string) => void;
-}
+import { CityProps } from "@/app/interfaces/ICity";
 
 const City = ({ city, onClick }: CityProps) => {
   return (
