@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import InputField from "./components/InputField";
 import { getCitySuggestions } from "./pages/api/search/index";
+import { getCurrentWeatherFromCity } from "./pages/api/current/index";
 import SearchResults from "./components/SearchResults";
 
 export default function Home() {
@@ -11,7 +12,6 @@ export default function Home() {
   const handleSearch = async (searchTerm: string) => {
     const result = await getCitySuggestions(searchTerm);
     setSearchResult(result);
-    console.log(result);
   };
 
   useEffect(() => {
@@ -22,8 +22,9 @@ export default function Home() {
     }
   }, [searchTerm]);
 
-  const clickCity = (url: string) => {
-    console.log("City clicked:", url);
+  const clickCityInList = (url: string) => {
+    const result = getCurrentWeatherFromCity(url, "en");
+    console.log(result);
   };
 
   return (
@@ -36,7 +37,7 @@ export default function Home() {
             onChange={(e) => setSearchTerm(e.target.value)}
             value={searchTerm}
           />
-          <SearchResults cities={searchResult} clickCity={clickCity} />
+          <SearchResults cities={searchResult} clickCity={clickCityInList} />
         </div>
       </main>
     </div>
