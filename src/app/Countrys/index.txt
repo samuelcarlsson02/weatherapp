@@ -1,0 +1,180 @@
+Tokyo
+Delhi
+Shanghai
+Dhaka
+Beijing
+Mumbai
+Osaka
+Chongqing
+Karachi
+Istanbul
+Kolkata
+Manila
+Guangzhou
+Lahore
+Tianjin
+Shenzhen
+Moscow
+Chennai
+Jakarta
+Bangkok
+Hyderabad
+Nanjing
+Seoul
+Chengdu
+Ho Chi Minh City
+Tehran
+Nagoya
+Ahmedabad
+Kuala Lumpur
+Wuhan
+Cairo
+Kinshasa
+Lagos
+Luanda
+Dar es Salaam
+Khartoum
+Johannesburg
+Abidjan
+Addis Ababa
+Alexandria
+Nairobi
+Cape Town
+Yaounde
+Kano
+Douala
+Kampala
+Antananarivo
+Abuja
+Ibadan
+Kumasi
+Casablanca
+Port Harcourt
+Dakar
+Ouagadougou
+Lusaka
+Durban
+Bamako
+Mbuji-Mayi
+Lubumbashi
+Algiers
+Moscow
+Paris
+London
+Madrid
+Barcelona
+Saint Petersburg
+Rome
+Berlin
+Milan
+Athens
+Lisbon
+Manchester
+Kyiv
+Birmingham
+Naples
+Brussels
+Minsk
+Vienna
+Turin
+Warsaw
+Hamburg
+Lyon
+Budapest
+Bucharest
+Stockholm
+Glasgow
+Novosibirsk
+Marseille
+Munich
+Yekaterinburg
+Mexico City
+New York City
+Toronto
+Guadalajara
+Monterrey
+Montreal
+Los Angeles
+Santo Domingo
+Puebla
+Guatemala City
+Port-au-Prince
+Chicago
+Vancouver
+San Juan
+Tijuana
+Brooklyn
+Houston
+Queens
+Havana
+Panama City
+Iztapalapa
+Calgary
+Ecatepec de Morelos
+Tegucigalpa
+Edmonton
+Philadelphia
+Phoenix
+Costa Rica
+Manhattan
+San Antonio
+Sao Paulo
+Buenos Aires
+Rio de Janeiro
+Bogota
+Lima
+Santiago
+Belo Horizonte
+Brasilia
+Recife
+Fortaleza
+Porto Alegre
+Medellin
+Salvador
+Curitiba
+Asuncion
+Campinas
+Guayaquil
+Caracas
+Goiania
+Cali
+Belem
+Manaus
+Maracaibo
+Barranquilla
+Valencia
+Quito
+La Paz
+Montevideo
+Cordoba
+Rosario
+Melbourne
+Sydney
+Brisbane
+Perth
+Auckland
+Adelaide
+Gold Coast
+Canberra
+Newcastle
+Port Moresby
+Wellington
+Christchurch
+Manukau City
+Wollongong
+Logan City
+Geelong
+Hobart
+Waitakere
+North Shore
+Townsville
+Cairns
+Hamilton
+Toowoomba
+Darwin
+Dunedin
+Tauranga
+Rockingham
+Launceston
+Lower Hutt
+Bendigo
