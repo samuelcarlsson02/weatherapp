@@ -15,11 +15,71 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [selectedCity, setSelectedCity] = useState<ICurrentResult | null>(null);
+  const [currentCompare, setCurrentCompare] = useState<ICurrentResult | null>(
+    null
+  );
+  const [otherCompare, setOtherCompare] = useState<ICurrentResult | null>(null);
+  const [cityList, setCityList] = useState<string[]>([]);
 
   const handleSearch = async (searchTerm: string) => {
     const result = await getCitySuggestions(searchTerm);
     setSearchResult(result);
   };
+
+  const currentWeatherPostion = async () => {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+
+    const success = async (pos: GeolocationPosition) => {
+      const crd = pos.coords;
+      const cordString = crd.latitude + ", " + crd.longitude;
+      const result = await getCurrentWeatherFromCity(cordString, "en");
+      setCurrentCompare(result);
+    };
+
+    const error = (err: GeolocationPositionError) => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error, options);
+    }
+  };
+
+  const loadCityList = async () => {
+    const result = await fetch("/countrys/index.txt");
+    if (!result.ok) throw new Error(`HTTP ${result.status}`);
+    const text = await result.text();
+    const lines = text
+      .split(/\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+    setCityList(lines);
+
+    console.log("City list loaded:", cityList);
+  };
+
+  const setCurrentWeatherFromRandomCity = async () => {
+    const randomCity = cityList[Math.floor(Math.random() * cityList.length)];
+    const result = await getCurrentWeatherFromCity(randomCity, "en");
+    setOtherCompare(result);
+  };
+
+  useEffect(() => {
+    loadCityList();
+  }, []);
+  useEffect(() => {
+    if (cityList.length > 0) {
+      setCurrentWeatherFromRandomCity();
+    }
+  }, [cityList]);
+
+  useEffect(() => {
+    currentWeatherPostion();
+  }, []);
 
   useEffect(() => {
     if (searchTerm.length > 1) {
@@ -51,6 +111,8 @@ export default function Home() {
     setWindow("landing");
   };
 
+  const temperorary = () => {};
+
   if (window === "landing") {
     return (
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -58,16 +120,22 @@ export default function Home() {
           <h1 className="text-5xl font-bold">Välkommen</h1>
           <div className="flex flex-row gap-4">
             <Button
-              onClick={startSearch}
+              onClick={loadCityList}
               className="bg-gradient-to-r from-red-500 to-red-700 py-2 px-6 rounded-xl shadow-lg text-white font-semibold hover:from-red-600 hover:to-red-800 hover:scale-105 cursor-pointer"
               label="Högre"
             />
             <Button
-              onClick={startSearch}
+              onClick={temperorary}
               className="bg-gradient-to-r from-blue-500 to-blue-700 py-2 px-6 rounded-xl shadow-lg text-white font-semibold hover:from-blue-600 hover:to-blue-800 hover:scale-105 cursor-pointer"
               label="Lägre"
             />
           </div>
+          <h2>
+            {currentCompare?.country}: {currentCompare?.temp_c}°C
+          </h2>
+          <h2>
+            {otherCompare?.country}: {otherCompare?.temp_c}°C
+          </h2>
           <Button onClick={startSearch} className="" label="Sök väder" />
         </main>
       </div>
