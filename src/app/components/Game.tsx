@@ -11,42 +11,56 @@ export function Game() {
     const [leftTemperature, setLeftTemperature] = useState(20); // Mock temperature for left city
     const [rightTemperature, setRightTemperature] = useState(25) // Mock temperature for right city
 
-    const handleHigherClick = () => {
+    const handleHigherClick = async () => {
         const correct = leftTemperature < rightTemperature; // Mock logic
 
         if (correct) {
-            triggerAnimation();
+            await triggerCountdown();
+            await triggerAnimation();
         }
     };
 
-    const handleLowerClick = () => {
+    const handleLowerClick = async () => {
         const correct = leftTemperature > rightTemperature; // Mock logic
 
         if (correct) {
-            triggerAnimation();
+            await triggerCountdown();
+            await triggerAnimation();
         }
     };
 
-    const triggerAnimation = () => {
-        setIsCorrect(true);
-        setIsAnimating(true);
-        setShowButtons(false);
-        setIsCountingUp(true);
-
-        setTimeout(() => {
-            setIsResetting(true);
-            setIsAnimating(false);
-            setIsCorrect(false);
-            setLeftTemperature(rightTemperature);
-            setRightTemperature(Math.floor(Math.random() * 40) - 10); // Mock new temperature for right city
-            setDisplayTemp(null);
+    const triggerCountdown = async () => {
+        return new Promise((resolve) => {
+            setIsCountingUp(true);
 
             setTimeout(() => {
-                setIsResetting(false);
-                setShowButtons(true);
                 setIsCountingUp(false);
-            }, 50);
-        }, 800);
+                resolve(true);
+            }, 1200);
+        });
+    };
+
+    const triggerAnimation = async () => {
+        return new Promise((resolve) => {
+            setIsCorrect(true);
+            setIsAnimating(true);
+            setShowButtons(false);
+
+            setTimeout(() => {
+                setIsResetting(true);
+                setIsAnimating(false);
+                setIsCorrect(false);
+                setLeftTemperature(rightTemperature);
+                setRightTemperature(Math.floor(Math.random() * 40) - 10); // Mock new temperature for right city
+                setDisplayTemp(null);
+                resolve(true);
+
+                setTimeout(() => {
+                    setIsResetting(false);
+                    setShowButtons(true);
+                }, 50);
+            }, 800);
+        });
     };
 
     useEffect(() => {
@@ -76,7 +90,7 @@ export function Game() {
         <div className="h-full w-full flex md:gap-4 p-4 md:flex-row flex-col overflow-hidden">
             <div className={`w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
                 ${isResetting ? 'transition-none' : 'transition-transform duration-800 ease-in-out'}
-                ${isAnimating && isCorrect ? 'transform translate-x-[114%] opacity-0' : ''}`
+                ${isAnimating && isCorrect ? 'transform md:translate-x-[calc(100%+2.5rem)] md:translate-y-0 translate-y-[calc(100%+2.5rem)] opacity-0' : ''}`
             }>
                 <h2 className="text-2xl font-bold mb-4">City</h2>
                 <p className="mb-4">temperature is</p>
@@ -87,11 +101,11 @@ export function Game() {
             </div>
             <div className={`w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
                 ${isResetting ? 'transition-none' : 'transition-transform duration-800 ease-in-out'}
-                ${isAnimating && isCorrect ? 'transform -translate-x-[114%]' : ''}`
+                ${isAnimating && isCorrect ? 'transform md:-translate-x-[calc(100%+5rem)] md:-translate-y-0 -translate-y-[calc(100%+3rem)]' : ''}`
             }>
                 <h2 className="text-2xl font-bold mb-4">City</h2>
                 <p className="mb-4">temperature is</p>
-                {isCountingUp && displayTemp !== null ? (
+                {displayTemp !== null ? (
                     <p className="text-3xl font-bold">{displayTemp}°C</p>
                 ) : (
                     showButtons && (
