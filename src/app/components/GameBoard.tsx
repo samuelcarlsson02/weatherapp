@@ -1,8 +1,9 @@
 import Button from './Button';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { GameBoardProps } from '../interfaces/IGameBoard';
 
-export function GameBoard() {
+export function GameBoard({ score, setScore, highscore, setHighscore }: GameBoardProps) {
     const [isCorrect, setIsCorrect] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showButtons, setShowButtons] = useState(true);
@@ -13,6 +14,7 @@ export function GameBoard() {
     const [rightTemperature, setRightTemperature] = useState(25) // Mock temperature for right city
     const [answerResult, setAnswerResult] = useState<'correct' | 'incorrect' | null>(null);
     const [gameOver, setGameOver] = useState(false);
+    const [isHighscore, setIsHighscore] = useState(false);
 
     const handleClick = async (direction: String) => {
         let correct = null;
@@ -26,6 +28,14 @@ export function GameBoard() {
 
         if (correct) {
             setAnswerResult('correct');
+
+            const newScore = score + 1;
+            setScore(newScore);
+
+            if (newScore > highscore) {
+                setHighscore(newScore);
+                setIsHighscore(true);
+            }
 
             await timeoutAnswerResult();
             await triggerSlideAnimation();
@@ -89,6 +99,8 @@ export function GameBoard() {
         setShowButtons(true);
         setIsResetting(false);
         setGameOver(false);
+        setScore(0);
+        setIsHighscore(false);
     }
 
     useEffect(() => {
@@ -131,7 +143,11 @@ export function GameBoard() {
             {gameOver && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-black/70 animate-fade-in">
                     <p className="text-6xl font-bold font-mono text-white">GAME OVER</p>
-                    <p className="text-2xl font-mono text-gray-300">Score: 0</p>
+                    {isHighscore ? (
+                        <p className="text-2xl font-mono text-yellow-400">New Highscore: {score}</p>
+                    ) : (
+                        <p className="text-2xl font-mono text-gray-300">Score: {score}</p>
+                    )}
                     <Button
                         onClick={resetGame}
                         className="mt-4 bg-gradient-to-r from-green-500 to-green-700 py-4 px-10 rounded-xl shadow-lg text-white font-semibold hover:from-green-600 hover:to-green-800 hover:scale-105 cursor-pointer"

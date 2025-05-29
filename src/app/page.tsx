@@ -14,6 +14,8 @@ import { UserData } from "./components/UserData";
 type Window = "landing" | "search" | "result";
 
 export default function Home() {
+  const [score, setScore] = useState(0);
+  const [highscore, setHighscore] = useState(0);
   const [window, setWindow] = useState<Window>("landing");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -121,8 +123,12 @@ export default function Home() {
   if (window === "landing") {
     return (
       <WheatherApplication>
-        <UserData />
-        <GameBoard />
+        <UserData score={score} highscore={highscore} />
+        <GameBoard
+          score={score}
+          setScore={setScore}
+          highscore={highscore}
+          setHighscore={setHighscore} />
       </WheatherApplication>
     );
   }
