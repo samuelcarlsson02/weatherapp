@@ -128,7 +128,8 @@ export default function Home() {
           score={score}
           setScore={setScore}
           highscore={highscore}
-          setHighscore={setHighscore} />
+          setHighscore={setHighscore}
+        />
       </WheatherApplication>
     );
   }
