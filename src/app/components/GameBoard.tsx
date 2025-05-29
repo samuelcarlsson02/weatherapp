@@ -177,7 +177,10 @@ export function GameBoard({
   };
 
   useEffect(() => {
+    const storedHighscore = Number(localStorage.getItem("highscore"));
+    setHighscore(storedHighscore);
     loadCityList();
+    currentWeatherPostion();
   }, []);
 
   useEffect(() => {
@@ -185,10 +188,6 @@ export function GameBoard({
       setCurrentWeatherFromRandomCity();
     }
   }, [cityList]);
-
-  useEffect(() => {
-    currentWeatherPostion();
-  }, []);
 
   const resetGame = () => {
     loadCityList();
