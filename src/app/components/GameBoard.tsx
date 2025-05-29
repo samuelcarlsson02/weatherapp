@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { GameBoardProps } from "../interfaces/IGameBoard";
 import { getCurrentWeatherFromCity } from "../pages/api/current/index";
-import { ICurrentResult } from "@/app/interfaces/ICurrentResult";
 
 export function GameBoard({
   score,
@@ -17,15 +16,17 @@ export function GameBoard({
   const [isCountingUp, setIsCountingUp] = useState(false);
   const [displayTemp, setDisplayTemp] = useState<number | null>(null);
   const [isResetting, setIsResetting] = useState(false);
-  const [leftTemperature, setLeftTemperature] = useState(20); // Mock temperature for left city
-  const [rightTemperature, setRightTemperature] = useState(25); // Mock temperature for right city
+  const [leftTemperature, setLeftTemperature] = useState(0);
+  const [rightTemperature, setRightTemperature] = useState(0);
+  const [leftCity, setLeftCity] = useState("");
+  const [rightCity, setRightCity] = useState("");
+  const [rightIcon, setRightIcon] = useState("");
+  const [leftIcon, setLeftIcon] = useState("");
   const [answerResult, setAnswerResult] = useState<
     "correct" | "incorrect" | null
   >(null);
   const [gameOver, setGameOver] = useState(false);
   const [isHighscore, setIsHighscore] = useState(false);
-  const [leftCompare, setLeftCompare] = useState<ICurrentResult | null>(null);
-  const [rightCompare, setRightCompare] = useState<ICurrentResult | null>(null);
   const [cityList, setCityList] = useState<string[]>([]);
 
   const handleClick = async (direction: string) => {
@@ -46,6 +47,7 @@ export function GameBoard({
 
       if (newScore > highscore) {
         setHighscore(newScore);
+        localStorage.setItem("highscore", String(newScore));
         setIsHighscore(true);
       }
 
@@ -89,7 +91,8 @@ export function GameBoard({
         setIsAnimating(false);
         setIsCorrect(false);
         setLeftTemperature(rightTemperature);
-        setRightTemperature(Math.floor(Math.random() * 40) - 10); // Mock new temperature for right city
+        setLeftCity(rightCity);
+        setCurrentWeatherFromRandomCity();
         setDisplayTemp(null);
         setAnswerResult(null);
         resolve(true);
@@ -100,20 +103,6 @@ export function GameBoard({
         }, 50);
       }, 800);
     });
-  };
-
-  const resetGame = () => {
-    setLeftTemperature(20);
-    setRightTemperature(25);
-    setDisplayTemp(null);
-    setIsCorrect(false);
-    setIsAnimating(false);
-    setShowButtons(true);
-    setIsResetting(false);
-    setGameOver(false);
-    setScore(0);
-    setIsHighscore(false);
-    loadCityList();
   };
 
   useEffect(() => {
@@ -150,7 +139,9 @@ export function GameBoard({
       const crd = pos.coords;
       const cordString = crd.latitude + ", " + crd.longitude;
       const result = await getCurrentWeatherFromCity(cordString, "en");
-      setLeftCompare(result);
+      setLeftTemperature(result.temp_c);
+      setLeftCity(result.name);
+      setLeftIcon(result.icon);
     };
 
     const error = (err: GeolocationPositionError) => {
@@ -180,7 +171,9 @@ export function GameBoard({
     const randomCity = cityList[randomSelection];
     cityList.splice(randomSelection, 1);
     const result = await getCurrentWeatherFromCity(randomCity, "en");
-    setRightCompare(result);
+    setRightTemperature(result.temp_c);
+    setRightCity(result.name);
+    setRightIcon(result.icon);
   };
 
   useEffect(() => {
@@ -196,6 +189,20 @@ export function GameBoard({
   useEffect(() => {
     currentWeatherPostion();
   }, []);
+
+  const resetGame = () => {
+    loadCityList();
+    currentWeatherPostion();
+    setCurrentWeatherFromRandomCity();
+    setDisplayTemp(null);
+    setIsCorrect(false);
+    setIsAnimating(false);
+    setShowButtons(true);
+    setIsResetting(false);
+    setGameOver(false);
+    setScore(0);
+    setIsHighscore(false);
+  };
 
   return (
     <div className="h-full w-full flex md:gap-4 p-4 md:flex-row flex-col overflow-hidden">
@@ -246,7 +253,7 @@ export function GameBoard({
                     : ""
                 }`}
       >
-        <h2 className="text-2xl font-bold mb-4">City</h2>
+        <h2 className="text-2xl font-bold mb-4">{leftCity}</h2>
         <p className="mb-4">temperature is</p>
         <p className="text-3xl font-bold">{leftTemperature}°C</p>
       </div>
@@ -266,7 +273,7 @@ export function GameBoard({
                     : ""
                 }`}
       >
-        <h2 className="text-2xl font-bold mb-4">City</h2>
+        <h2 className="text-2xl font-bold mb-4">{rightCity}</h2>
         <p className="mb-4">temperature is</p>
         {displayTemp !== null ? (
           <p className="text-3xl font-bold">{displayTemp}°C</p>
