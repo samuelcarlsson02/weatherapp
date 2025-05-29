@@ -7,6 +7,9 @@ import SearchResults from "./components/SearchResults";
 import { getCitySuggestions } from "./pages/api/search/index";
 import { getCurrentWeatherFromCity } from "./pages/api/current/index";
 import { ICurrentResult } from "@/app/interfaces/ICurrentResult";
+import { WheatherApplication } from "./components/WheatherApplication";
+import { GameBoard } from "./components/GameBoard";
+import { UserData } from "./components/UserData";
 
 type Window = "landing" | "search" | "result";
 
@@ -117,30 +120,10 @@ export default function Home() {
 
   if (window === "landing") {
     return (
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-        <main className="flex flex-col gap-6 items-center">
-          <h1 className="text-5xl font-bold">Välkommen</h1>
-          <div className="flex flex-row gap-4">
-            <Button
-              onClick={loadCityList}
-              className="bg-gradient-to-r from-red-500 to-red-700 py-2 px-6 rounded-xl shadow-lg text-white font-semibold hover:from-red-600 hover:to-red-800 hover:scale-105 cursor-pointer"
-              label="Högre"
-            />
-            <Button
-              onClick={temperorary}
-              className="bg-gradient-to-r from-blue-500 to-blue-700 py-2 px-6 rounded-xl shadow-lg text-white font-semibold hover:from-blue-600 hover:to-blue-800 hover:scale-105 cursor-pointer"
-              label="Lägre"
-            />
-          </div>
-          <h2>
-            {currentCompare?.country}: {currentCompare?.temp_c}°C
-          </h2>
-          <h2>
-            {otherCompare?.country}: {otherCompare?.temp_c}°C
-          </h2>
-          <Button onClick={startSearch} className="" label="Sök väder" />
-        </main>
-      </div>
+      <WheatherApplication>
+        <UserData />
+        <GameBoard />
+      </WheatherApplication>
     );
   }
 
