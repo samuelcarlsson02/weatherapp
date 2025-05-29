@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { GameBoardProps } from "../interfaces/IGameBoard";
 import { getCurrentWeatherFromCity } from "../pages/api/current/index";
+import { getCityImage } from "../pages/api/pexels/index";
 
 export function GameBoard({
   score,
@@ -28,6 +29,8 @@ export function GameBoard({
   const [gameOver, setGameOver] = useState(false);
   const [isHighscore, setIsHighscore] = useState(false);
   const [cityList, setCityList] = useState<string[]>([]);
+  const [leftCityImage, setLeftCityImage] = useState("");
+  const [rightCityImage, setRightCityImage] = useState("");
 
   const handleClick = async (direction: string) => {
     let correct = null;
@@ -176,6 +179,16 @@ export function GameBoard({
     setRightIcon(result.icon);
   };
 
+  const setCityImages = async () => {
+    const leftImage = await getCityImage(leftCity);
+    console.log("Left city image:", leftImage);
+    setLeftCityImage(leftImage);
+
+    const rightImage = await getCityImage(rightCity);
+    console.log("Right city image:", rightImage);
+    setRightCityImage(rightImage);
+  };
+
   useEffect(() => {
     const storedHighscore = Number(localStorage.getItem("highscore"));
     setHighscore(storedHighscore);
@@ -188,6 +201,12 @@ export function GameBoard({
       setCurrentWeatherFromRandomCity();
     }
   }, [cityList]);
+
+  useEffect(() => {
+    if (leftCity && rightCity) {
+      setCityImages();
+    }
+  }, [leftCity, rightCity]);
 
   const resetGame = () => {
     loadCityList();
@@ -241,16 +260,14 @@ export function GameBoard({
 
       <div
         className={`w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
-                ${
-                  isResetting
-                    ? "transition-none"
-                    : "transition-transform duration-800 ease-in-out"
-                }
-                ${
-                  isAnimating && isCorrect
-                    ? "transform md:translate-x-[calc(100%+2.5rem)] md:translate-y-0 translate-y-[calc(100%+2.5rem)] opacity-0"
-                    : ""
-                }`}
+                ${isResetting
+            ? "transition-none"
+            : "transition-transform duration-800 ease-in-out"
+          }
+                ${isAnimating && isCorrect
+            ? "transform md:translate-x-[calc(100%+2.5rem)] md:translate-y-0 translate-y-[calc(100%+2.5rem)] opacity-0"
+            : ""
+          }`}
       >
         <h2 className="text-2xl font-bold mb-4">{leftCity}</h2>
         <p className="mb-4">temperature is</p>
@@ -261,16 +278,14 @@ export function GameBoard({
       </div>
       <div
         className={`w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
-                ${
-                  isResetting
-                    ? "transition-none"
-                    : "transition-transform duration-800 ease-in-out"
-                }
-                ${
-                  isAnimating && isCorrect
-                    ? "transform md:-translate-x-[calc(100%+5rem)] md:-translate-y-0 -translate-y-[calc(100%+3rem)]"
-                    : ""
-                }`}
+                ${isResetting
+            ? "transition-none"
+            : "transition-transform duration-800 ease-in-out"
+          }
+                ${isAnimating && isCorrect
+            ? "transform md:-translate-x-[calc(100%+5rem)] md:-translate-y-0 -translate-y-[calc(100%+3rem)]"
+            : ""
+          }`}
       >
         <h2 className="text-2xl font-bold mb-4">{rightCity}</h2>
         <p className="mb-4">temperature is</p>
