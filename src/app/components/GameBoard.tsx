@@ -35,9 +35,9 @@ export function GameBoard({
   const handleClick = async (direction: string) => {
     let correct = null;
     if (direction === "higher") {
-      correct = leftTemperature <= rightTemperature; // Mock logic
+      correct = leftTemperature <= rightTemperature;
     } else {
-      correct = leftTemperature >= rightTemperature; // Mock logic
+      correct = leftTemperature >= rightTemperature;
     }
 
     await triggerCountdownAnimation();
@@ -94,6 +94,7 @@ export function GameBoard({
         setIsAnimating(false);
         setIsCorrect(false);
         setLeftTemperature(rightTemperature);
+        setLeftIcon(rightIcon);
         setLeftCity(rightCity);
         setCurrentWeatherFromRandomCity();
         setDisplayTemp(null);
@@ -259,7 +260,7 @@ export function GameBoard({
       )}
 
       <div
-        className={`w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
+        className={`relative w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
                 ${isResetting
             ? "transition-none"
             : "transition-transform duration-800 ease-in-out"
@@ -269,15 +270,30 @@ export function GameBoard({
             : ""
           }`}
       >
-        <h2 className="text-2xl font-bold mb-4">{leftCity}</h2>
-        <p className="mb-4">temperature is</p>
-        <p className="text-3xl font-bold">{leftTemperature}°C</p>
+        {leftCityImage && (
+          <Image
+            src={leftCityImage}
+            alt={leftCity}
+            fill
+            className="object-cover w-full h-full rounded-lg"
+          />
+        )}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-black/40">
+          <h2 className="text-2xl font-bold mb-4">{leftCity}</h2>
+          <p className="">temperature is</p>
+          <div className="flex items-center justify-center">
+            {leftIcon !== "" && (
+              <img src={leftIcon} alt="Left weather icon"></img>
+            )}
+            <p className="text-3xl font-bold">{leftTemperature}°C</p>
+          </div>
+        </div>
       </div>
       <div className="w-auto flex flex-col items-center justify-center m-2">
         <h2 className="text-2xl font-bold">VS</h2>
       </div>
       <div
-        className={`w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
+        className={`relative w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
                 ${isResetting
             ? "transition-none"
             : "transition-transform duration-800 ease-in-out"
@@ -287,26 +303,41 @@ export function GameBoard({
             : ""
           }`}
       >
-        <h2 className="text-2xl font-bold mb-4">{rightCity}</h2>
-        <p className="mb-4">temperature is</p>
-        {displayTemp !== null ? (
-          <p className="text-3xl font-bold">{displayTemp}°C</p>
-        ) : (
-          showButtons && (
-            <div className="flex flex-col gap-4 justify-center">
-              <Button
-                onClick={() => handleClick("higher")}
-                className="bg-gradient-to-r from-red-500 to-red-700 py-2 px-12 rounded-xl shadow-lg text-white font-semibold hover:from-red-600 hover:to-red-800 hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                label="↑ Higher"
-              />
-              <Button
-                onClick={() => handleClick("lower")}
-                className="bg-gradient-to-r from-blue-500 to-blue-700 py-2 px-12 rounded-xl shadow-lg text-white font-semibold hover:from-blue-600 hover:to-blue-800 hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                label="↓ Lower"
-              />
-            </div>
-          )
+        {rightCityImage && (
+          <Image
+            src={rightCityImage}
+            alt={rightCity}
+            fill
+            className="object-cover w-full h-full rounded-lg"
+          />
         )}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-black/40">
+          <h2 className="text-2xl font-bold mb-4">{rightCity}</h2>
+          <p className="mb-4">temperature is</p>
+          {displayTemp !== null ? (
+            <div className="flex items-center justify-center">
+              {rightIcon !== "" && (
+                <img src={rightIcon} alt="Right weather icon"></img>
+              )}
+              <p className="text-3xl font-bold">{displayTemp}°C</p>
+            </div>
+          ) : (
+            showButtons && (
+              <div className="flex flex-col gap-4 justify-center">
+                <Button
+                  onClick={() => handleClick("higher")}
+                  className="bg-gradient-to-r from-red-500 to-red-700 py-2 px-12 rounded-xl shadow-lg text-white font-semibold hover:from-red-600 hover:to-red-800 hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  label="↑ Higher"
+                />
+                <Button
+                  onClick={() => handleClick("lower")}
+                  className="bg-gradient-to-r from-blue-500 to-blue-700 py-2 px-12 rounded-xl shadow-lg text-white font-semibold hover:from-blue-600 hover:to-blue-800 hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  label="↓ Lower"
+                />
+              </div>
+            )
+          )}
+        </div>
       </div>
     </div>
   );

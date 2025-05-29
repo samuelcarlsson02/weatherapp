@@ -17,5 +17,5 @@ export const getCityImage = async (city: string) => {
 
     const data = await response.json();
 
-    return data.photos[0].src.large;
+    return data.photos[0].src.original;
 }
