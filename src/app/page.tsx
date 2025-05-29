@@ -8,7 +8,7 @@ import { getCitySuggestions } from "./pages/api/search/index";
 import { getCurrentWeatherFromCity } from "./pages/api/current/index";
 import { ICurrentResult } from "@/app/interfaces/ICurrentResult";
 import { WheatherApplication } from "./components/WheatherApplication";
-import { Game } from "./components/Game";
+import { GameBoard } from "./components/GameBoard";
 import { UserData } from "./components/UserData";
 
 type Window = "landing" | "search" | "result";
@@ -58,7 +58,7 @@ export default function Home() {
     return (
       <WheatherApplication>
         <UserData />
-        <Game />
+        <GameBoard />
       </WheatherApplication>
     );
   }

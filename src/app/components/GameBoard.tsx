@@ -1,7 +1,8 @@
 import Button from './Button';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
-export function Game() {
+export function GameBoard() {
     const [isCorrect, setIsCorrect] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showButtons, setShowButtons] = useState(true);
@@ -10,37 +11,52 @@ export function Game() {
     const [isResetting, setIsResetting] = useState(false);
     const [leftTemperature, setLeftTemperature] = useState(20); // Mock temperature for left city
     const [rightTemperature, setRightTemperature] = useState(25) // Mock temperature for right city
+    const [answerResult, setAnswerResult] = useState<'correct' | 'incorrect' | null>(null);
+    const [gameOver, setGameOver] = useState(false);
 
-    const handleHigherClick = async () => {
-        const correct = leftTemperature < rightTemperature; // Mock logic
+    const handleClick = async (direction: String) => {
+        let correct = null;
+        if (direction === 'higher') {
+            correct = leftTemperature <= rightTemperature; // Mock logic
+        } else {
+            correct = leftTemperature >= rightTemperature; // Mock logic
+        }
+
+        await triggerCountdownAnimation();
 
         if (correct) {
-            await triggerCountdown();
-            await triggerAnimation();
+            setAnswerResult('correct');
+
+            await timeoutAnswerResult();
+            await triggerSlideAnimation();
+        } else {
+            setAnswerResult('incorrect');
+            await timeoutAnswerResult();
+            setGameOver(true);
         }
     };
 
-    const handleLowerClick = async () => {
-        const correct = leftTemperature > rightTemperature; // Mock logic
-
-        if (correct) {
-            await triggerCountdown();
-            await triggerAnimation();
-        }
+    const timeoutAnswerResult = async () => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                setAnswerResult(null);
+                resolve(true);
+            }, 1200);
+        });
     };
 
-    const triggerCountdown = async () => {
+    const triggerCountdownAnimation = async () => {
         return new Promise((resolve) => {
             setIsCountingUp(true);
 
             setTimeout(() => {
                 setIsCountingUp(false);
                 resolve(true);
-            }, 1200);
+            }, 2000);
         });
     };
 
-    const triggerAnimation = async () => {
+    const triggerSlideAnimation = async () => {
         return new Promise((resolve) => {
             setIsCorrect(true);
             setIsAnimating(true);
@@ -53,6 +69,7 @@ export function Game() {
                 setLeftTemperature(rightTemperature);
                 setRightTemperature(Math.floor(Math.random() * 40) - 10); // Mock new temperature for right city
                 setDisplayTemp(null);
+                setAnswerResult(null);
                 resolve(true);
 
                 setTimeout(() => {
@@ -62,6 +79,17 @@ export function Game() {
             }, 800);
         });
     };
+
+    const resetGame = () => {
+        setLeftTemperature(20);
+        setRightTemperature(25);
+        setDisplayTemp(null);
+        setIsCorrect(false);
+        setIsAnimating(false);
+        setShowButtons(true);
+        setIsResetting(false);
+        setGameOver(false);
+    }
 
     useEffect(() => {
         if (isCountingUp) {
@@ -88,6 +116,30 @@ export function Game() {
 
     return (
         <div className="h-full w-full flex md:gap-4 p-4 md:flex-row flex-col overflow-hidden">
+            {answerResult && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 animate-fade-in">
+                    <Image
+                        src={answerResult === 'correct' ? '/images/correct.png' : '/images/incorrect.png'}
+                        alt={answerResult === 'correct' ? 'Correct!' : 'Incorrect!'}
+                        width={200}
+                        height={200}
+                        className="drop-shadow-lg animate-pulse"
+                    />
+                </div>
+            )}
+
+            {gameOver && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-black/70 animate-fade-in">
+                    <p className="text-6xl font-bold font-mono text-white">GAME OVER</p>
+                    <p className="text-2xl font-mono text-gray-300">Score: 0</p>
+                    <Button
+                        onClick={resetGame}
+                        className="mt-4 bg-gradient-to-r from-green-500 to-green-700 py-4 px-10 rounded-xl shadow-lg text-white font-semibold hover:from-green-600 hover:to-green-800 hover:scale-105 cursor-pointer"
+                        label="Restart Game"
+                    />
+                </div>
+            )}
+
             <div className={`w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
                 ${isResetting ? 'transition-none' : 'transition-transform duration-800 ease-in-out'}
                 ${isAnimating && isCorrect ? 'transform md:translate-x-[calc(100%+2.5rem)] md:translate-y-0 translate-y-[calc(100%+2.5rem)] opacity-0' : ''}`
@@ -111,12 +163,12 @@ export function Game() {
                     showButtons && (
                         <div className="flex flex-col gap-4 justify-center">
                             <Button
-                                onClick={handleHigherClick}
+                                onClick={() => handleClick('higher')}
                                 className="bg-gradient-to-r from-red-500 to-red-700 py-2 px-12 rounded-xl shadow-lg text-white font-semibold hover:from-red-600 hover:to-red-800 hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 label="↑ Higher"
                             />
                             <Button
-                                onClick={handleLowerClick}
+                                onClick={() => handleClick('lower')}
                                 className="bg-gradient-to-r from-blue-500 to-blue-700 py-2 px-12 rounded-xl shadow-lg text-white font-semibold hover:from-blue-600 hover:to-blue-800 hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 label="↓ Lower"
                             />
