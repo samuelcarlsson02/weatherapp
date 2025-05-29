@@ -63,7 +63,9 @@ export default function Home() {
   };
 
   const setCurrentWeatherFromRandomCity = async () => {
-    const randomCity = cityList[Math.floor(Math.random() * cityList.length)];
+    const randomSelection = Math.floor(Math.random() * cityList.length);
+    const randomCity = cityList[randomSelection];
+    cityList.splice(randomSelection, 1);
     const result = await getCurrentWeatherFromCity(randomCity, "en");
     setOtherCompare(result);
   };

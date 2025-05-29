@@ -4,6 +4,11 @@ import { CurrentResultProps } from "@/app/interfaces/ICurrentResult";
 const CurrentResult = ({ currentWeather }: CurrentResultProps) => {
   const windMS = (currentWeather.wind_kph / 3.6).toFixed(1);
   const gustMS = (currentWeather.gust_kph / 3.6).toFixed(1);
+
+  if (!currentWeather) {
+    return <div className="text-center">No weather data available</div>;
+  }
+
   return (
     <div className="flex flex-col gap-4 p-4 bg-white dark:text-black rounded-lg shadow-md max-w-md mx-auto">
       <h2 className="text-2xl font-bold">
