@@ -1,4 +1,4 @@
-import { UserDataProps } from "../interfaces/IUserData";
+import { UserDataProps } from "../../interfaces/IUserData";
 
 export function UserData({ score, highscore }: UserDataProps) {
   return (

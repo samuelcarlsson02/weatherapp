@@ -7,7 +7,7 @@ import SearchResults from "./components/SearchResults";
 import { getCitySuggestions } from "./pages/api/search/index";
 import { getCurrentWeatherFromCity } from "./pages/api/current/index";
 import { ICurrentResult } from "@/app/interfaces/ICurrentResult";
-import { WheatherApplication } from "./components/WheatherApplication";
+import { WheatherApplication } from "./components/WeatherApplication";
 import { GameBoard } from "./components/GameBoard";
 import { UserData } from "./components/UserData";
 
