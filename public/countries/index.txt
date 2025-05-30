@@ -35,7 +35,6 @@ Copenhagen
 Buenos Aires
 Jakarta
 New Delhi
-Doha
 Rio de Janeiro
 Kuala Lumpur
 Stockholm
@@ -51,7 +50,6 @@ Florence
 Brussels
 Montreal
 Venice
-Tel Aviv
 Edinburgh
 Hanoi
 Nashville
@@ -61,8 +59,6 @@ Reykjavik
 Warsaw
 Lima
 Sao Paulo
-Bogotá
-Nice
 Casablanca
 Budapest
 Quebec City
@@ -70,8 +66,6 @@ Brisbane
 Perth
 Krakow
 Helsinki
-Manila
-Porto
 Santiago
 Oslo
 Bali
@@ -97,121 +91,55 @@ Chiang Mai
 Cologne
 Panama City
 Philadelphia
-Detroit
 New Orleans
 Bangalore
-Chennai
 Hyderabad
-Ahmedabad
-Pune
-Karachi
+Ahmedabad   
 Lahore
-Islamabad
-Dhaka
 Kathmandu
 Colombo
 Tunis
 Algiers
-Addis Ababa
 Nairobi
-Accra
-Lusaka
 Lagos
 Abidjan
-Kigali
-Dar es Salaam
 Amman
 Muscat
 Bahrain
 Kuwait City
-Riyadh
 Jeddah
 Doha
 Tehran
-Baghdad
 Erbil
 Baku
-Yerevan
 Tashkent
-Almaty
 Astana
-Ulaanbaatar
-Hobart
-Adelaide
-Canberra
 Auckland
-Wellington
-Suva
-Managua
 San José
 Guatemala City
-Tegucigalpa
-San Salvador
 Havana
-Santo Domingo
-Caracas
 Quito
-La Paz
-Montevideo
-Asunción
 Paramaribo
-Georgetown
-Port-au-Prince
-Kingston
 Bridgetown
 Nassau
-Port of Spain
-Malé
 Phnom Penh
 Yangon
-Vientiane
 Luang Prabang
 Hội An
-Hue
 Da Nang
-Pattaya
-Phuket
 Chiang Rai
-Siem Reap
 Batumi
 Lviv
-Chisinau
-Skopje
 Sarajevo
 Podgorica
 Zagreb
 Split
 Riga
-Sofia
 Bucharest
-Belmopan
-San Pedro
-Windhoek
-Maputo
-Gaborone
 Harare
-Victoria
-Libreville
-Brazzaville
-Kinshasa
-Bujumbura
-Lilongwe
 Bamako
-Ouagadougou
-Niamey
-Lomé
-Cotonou
 Porto-Novo
 Yaoundé
-Douala
-Nouakchott
-Dakar
-Freetown
 Monrovia
-Conakry
-Bissau
-Praia
 Moroni
 Djibouti
-Hargeisa
-Mogadishu
