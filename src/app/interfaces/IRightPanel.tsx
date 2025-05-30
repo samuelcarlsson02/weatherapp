@@ -8,4 +8,8 @@ export interface RightPanelProps {
   buttonOneLabel: string;
   buttonTwoOnClick: () => void;
   buttonTwoLabel: string;
+  rightCityImage?: string;
+  isCorrect: boolean;
+  isResetting: boolean;
+  isAnimating: boolean;
 }

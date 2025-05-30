@@ -3,4 +3,8 @@ export interface LeftPanelProps {
   leftTemperature: number;
   leftIcon: string;
   iconAlt: string;
+  leftCityImage: string;
+  isCorrect: boolean;
+  isResetting: boolean;
+  isAnimating: boolean;
 }

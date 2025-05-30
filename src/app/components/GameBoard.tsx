@@ -160,7 +160,7 @@ export function GameBoard({
   };
 
   const loadCityList = async () => {
-    const result = await fetch("/countrys/index.txt");
+    const result = await fetch("/countries/index.txt");
     if (!result.ok) throw new Error(`HTTP ${result.status}`);
     const text = await result.text();
     const lines = text
@@ -251,71 +251,36 @@ export function GameBoard({
           buttonLabel="Restart Game"
         />
       )}
+      <LeftPanel
+        leftCity={leftCity}
+        leftTemperature={leftTemperature}
+        leftIcon={leftIcon}
+        iconAlt="Left weather icon"
+        leftCityImage={leftCityImage}
+        isCorrect={isCorrect}
+        isResetting={isResetting}
+        isAnimating={isAnimating}
+      />
 
-      <div
-        className={`relative w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
-                ${
-                  isResetting
-                    ? "transition-none"
-                    : "transition-transform duration-800 ease-in-out"
-                }
-                ${
-                  isAnimating && isCorrect
-                    ? "transform md:translate-x-[calc(100%+2.5rem)] md:translate-y-0 translate-y-[calc(100%+2.5rem)] opacity-0"
-                    : ""
-                }`}
-      >
-        {leftCityImage && (
-          <Image
-            src={leftCityImage}
-            alt={leftCity}
-            fill
-            className="object-cover w-full h-full rounded-lg"
-          />
-        )}
-        <LeftPanel
-          leftCity={leftCity}
-          leftTemperature={leftTemperature}
-          leftIcon={leftIcon}
-          iconAlt="Left weather icon"
-        />
-      </div>
       <div className="w-auto flex flex-col items-center justify-center m-2">
         <h2 className="text-2xl font-bold">VS</h2>
       </div>
-      <div
-        className={`relative w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
-                ${
-                  isResetting
-                    ? "transition-none"
-                    : "transition-transform duration-800 ease-in-out"
-                }
-                ${
-                  isAnimating && isCorrect
-                    ? "transform md:-translate-x-[calc(100%+5rem)] md:-translate-y-0 -translate-y-[calc(100%+3rem)]"
-                    : ""
-                }`}
-      >
-        {rightCityImage && (
-          <Image
-            src={rightCityImage}
-            alt={rightCity}
-            fill
-            className="object-cover w-full h-full rounded-lg"
-          />
-        )}
-        <RightPanel
-          rightCity={rightCity}
-          displayTemperature={displayTemp}
-          rightIcon={rightIcon}
-          iconAlt="Right weather icon"
-          showButtons={showButtons}
-          buttonOneOnClick={() => handleClick("higher")}
-          buttonOneLabel="↑ Higher"
-          buttonTwoOnClick={() => handleClick("lower")}
-          buttonTwoLabel="↓ Lower"
-        />
-      </div>
+
+      <RightPanel
+        rightCity={rightCity}
+        displayTemperature={displayTemp}
+        rightIcon={rightIcon}
+        iconAlt="Right weather icon"
+        showButtons={showButtons}
+        buttonOneOnClick={() => handleClick("higher")}
+        buttonOneLabel="↑ Higher"
+        buttonTwoOnClick={() => handleClick("lower")}
+        buttonTwoLabel="↓ Lower"
+        rightCityImage={rightCityImage}
+        isCorrect={isCorrect}
+        isResetting={isResetting}
+        isAnimating={isAnimating}
+      />
     </div>
   );
 }
