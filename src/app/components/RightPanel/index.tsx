@@ -14,7 +14,7 @@ const LeftPanel = ({
   buttonTwoLabel,
 }: RightPanelProps) => {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-black/40">
+    <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-black/40 rounded-lg">
       <h2 className="text-2xl font-bold mb-4">{rightCity}</h2>
       <p className="mb-4">temperature is</p>
       {displayTemperature !== null ? (
