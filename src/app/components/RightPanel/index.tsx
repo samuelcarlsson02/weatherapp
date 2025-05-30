@@ -42,7 +42,7 @@ const LeftPanel = ({
       )}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-black/40 rounded-lg">
         <h2 className="text-2xl font-bold mb-4">{rightCity}</h2>
-        <p className="mb-4">temperature is</p>
+        <p className="mb-4">current temperature is</p>
         {displayTemperature !== null ? (
           <div className="flex items-center justify-center">
             {rightIcon !== "" && <img src={rightIcon} alt={iconAlt}></img>}
