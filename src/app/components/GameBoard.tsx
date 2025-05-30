@@ -98,6 +98,9 @@ export function GameBoard({
         setLeftTemperature(rightTemperature);
         setLeftIcon(rightIcon);
         setLeftCity(rightCity);
+        setLeftCityImage(rightCityImage);
+        setRightCity("");
+        setRightCityImage("");
         setCurrentWeatherFromRandomCity();
         setDisplayTemp(null);
         setAnswerResult(null);
@@ -182,14 +185,14 @@ export function GameBoard({
     setRightIcon(result.icon);
   };
 
-  const setCityImages = async () => {
-    const leftImage = await getCityImage(leftCity);
-    console.log("Left city image:", leftImage);
-    setLeftCityImage(leftImage);
-
+  const changeRightCityImage = async () => {
     const rightImage = await getCityImage(rightCity);
-    console.log("Right city image:", rightImage);
     setRightCityImage(rightImage);
+  };
+
+  const changeLeftCityImage = async () => {
+    const leftImage = await getCityImage(leftCity);
+    setLeftCityImage(leftImage);
   };
 
   useEffect(() => {
@@ -206,12 +209,22 @@ export function GameBoard({
   }, [cityList]);
 
   useEffect(() => {
-    if (leftCity && rightCity) {
-      setCityImages();
+    if (rightCity) {
+      changeRightCityImage();
     }
-  }, [leftCity, rightCity]);
+  }, [rightCity]);
+
+  useEffect(() => {
+    if (leftCity) {
+      changeLeftCityImage();
+    }
+  }, [leftCity]);
 
   const resetGame = () => {
+    setRightCityImage("");
+    setLeftCityImage("");
+    setLeftCity("");
+    setRightCity("");
     loadCityList();
     currentWeatherPostion();
     setCurrentWeatherFromRandomCity();
