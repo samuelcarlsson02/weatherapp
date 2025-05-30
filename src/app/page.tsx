@@ -20,73 +20,11 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [selectedCity, setSelectedCity] = useState<ICurrentResult | null>(null);
-  const [currentCompare, setCurrentCompare] = useState<ICurrentResult | null>(
-    null
-  );
-  const [otherCompare, setOtherCompare] = useState<ICurrentResult | null>(null);
-  const [cityList, setCityList] = useState<string[]>([]);
 
   const handleSearch = async (searchTerm: string) => {
     const result = await getCitySuggestions(searchTerm);
     setSearchResult(result);
   };
-
-  const currentWeatherPostion = async () => {
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    };
-
-    const success = async (pos: GeolocationPosition) => {
-      const crd = pos.coords;
-      const cordString = crd.latitude + ", " + crd.longitude;
-      const result = await getCurrentWeatherFromCity(cordString, "en");
-      setCurrentCompare(result);
-    };
-
-    const error = (err: GeolocationPositionError) => {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
-    };
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error, options);
-    }
-  };
-
-  const loadCityList = async () => {
-    const result = await fetch("/countrys/index.txt");
-    if (!result.ok) throw new Error(`HTTP ${result.status}`);
-    const text = await result.text();
-    const lines = text
-      .split(/\n/)
-      .map((line) => line.trim())
-      .filter(Boolean);
-    setCityList(lines);
-
-    console.log("City list loaded:", cityList);
-  };
-
-  const setCurrentWeatherFromRandomCity = async () => {
-    const randomSelection = Math.floor(Math.random() * cityList.length);
-    const randomCity = cityList[randomSelection];
-    cityList.splice(randomSelection, 1);
-    const result = await getCurrentWeatherFromCity(randomCity, "en");
-    setOtherCompare(result);
-  };
-
-  useEffect(() => {
-    loadCityList();
-  }, []);
-  useEffect(() => {
-    if (cityList.length > 0) {
-      setCurrentWeatherFromRandomCity();
-    }
-  }, [cityList]);
-
-  useEffect(() => {
-    currentWeatherPostion();
-  }, []);
 
   useEffect(() => {
     if (searchTerm.length > 1) {
