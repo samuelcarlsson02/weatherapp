@@ -101,7 +101,7 @@ export function GameBoard({
         setLeftCityImage(rightCityImage);
         setRightCity("");
         setRightCityImage("");
-        setCurrentWeatherFromRandomCity();
+        setCurrentWeatherFromRandomCity("right");
         setDisplayTemp(null);
         setAnswerResult(null);
         resolve(true);
@@ -175,14 +175,20 @@ export function GameBoard({
     console.log("City list loaded:", cityList);
   };
 
-  const setCurrentWeatherFromRandomCity = async () => {
+  const setCurrentWeatherFromRandomCity = async (panel: string) => {
     const randomSelection = Math.floor(Math.random() * cityList.length);
     const randomCity = cityList[randomSelection];
     cityList.splice(randomSelection, 1);
     const result = await getCurrentWeatherFromCity(randomCity, "en");
-    setRightTemperature(result.temp_c);
-    setRightCity(result.name);
-    setRightIcon(result.icon);
+    if (panel === "left") {
+      setLeftTemperature(result.temp_c);
+      setLeftCity(result.name);
+      setLeftIcon(result.icon);
+    } else {
+      setRightTemperature(result.temp_c);
+      setRightCity(result.name);
+      setRightIcon(result.icon);
+    }
   };
 
   const changeRightCityImage = async () => {
@@ -204,7 +210,10 @@ export function GameBoard({
 
   useEffect(() => {
     if (cityList.length > 0) {
-      setCurrentWeatherFromRandomCity();
+      setCurrentWeatherFromRandomCity("right");
+      if (leftCity === "") {
+        setCurrentWeatherFromRandomCity("left");
+      }
     }
   }, [cityList]);
 
@@ -227,7 +236,7 @@ export function GameBoard({
     setRightCity("");
     loadCityList();
     currentWeatherPostion();
-    setCurrentWeatherFromRandomCity();
+    setCurrentWeatherFromRandomCity("right");
     setDisplayTemp(null);
     setIsCorrect(false);
     setIsAnimating(false);
