@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { WheatherApplication } from "./components/WheatherApplication";
+import { WheatherApplication } from "./components/WeatherApplication";
 import { GameBoard } from "./components/GameBoard";
 import { UserData } from "./components/UserData";
 
