@@ -33,6 +33,7 @@ export function GameBoard({
   const [cityList, setCityList] = useState<string[]>([]);
   const [leftCityImage, setLeftCityImage] = useState("");
   const [rightCityImage, setRightCityImage] = useState("");
+  const [geoBlock, setGeoBlock] = useState<boolean | null>(null);
 
   const handleClick = async (direction: string) => {
     let correct = null;
@@ -145,6 +146,7 @@ export function GameBoard({
     };
 
     const success = async (pos: GeolocationPosition) => {
+      setGeoBlock(false);
       const crd = pos.coords;
       const cordString = crd.latitude + ", " + crd.longitude;
       const result = await getCurrentWeatherFromCity(cordString, "en");
@@ -154,6 +156,7 @@ export function GameBoard({
     };
 
     const error = (err: GeolocationPositionError) => {
+      setGeoBlock(true);
       console.warn(`ERROR(${err.code}): ${err.message}`);
     };
 
@@ -211,11 +214,14 @@ export function GameBoard({
   useEffect(() => {
     if (cityList.length > 0) {
       setCurrentWeatherFromRandomCity("right");
-      if (leftCity === "") {
-        setCurrentWeatherFromRandomCity("left");
-      }
     }
   }, [cityList]);
+
+  useEffect(() => {
+    if (geoBlock) {
+      setCurrentWeatherFromRandomCity("left");
+    }
+  }, [geoBlock]);
 
   useEffect(() => {
     if (rightCity) {
@@ -249,6 +255,9 @@ export function GameBoard({
 
   return (
     <div className="h-full w-full flex md:gap-4 p-4 md:flex-row flex-col overflow-hidden">
+      {geoBlock === null && (
+        <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 animate-fade-in"></div>
+      )}
       {answerResult && (
         <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 animate-fade-in">
           <Image
