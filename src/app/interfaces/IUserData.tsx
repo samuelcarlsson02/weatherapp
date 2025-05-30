@@ -1,4 +1,4 @@
 export interface UserDataProps {
-    score: number;
-    highscore: number;
+  score: number;
+  highscore: number;
 }
