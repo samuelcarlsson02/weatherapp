@@ -38,6 +38,7 @@ const LeftPanel = ({
           alt={rightCity}
           fill
           className="object-cover w-full h-full rounded-lg"
+          priority
         />
       )}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-black/40 rounded-lg">
