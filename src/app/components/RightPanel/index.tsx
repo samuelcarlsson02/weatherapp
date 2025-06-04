@@ -3,7 +3,7 @@ import Image from "next/image";
 import { RightPanelProps } from "@/app/interfaces/IRightPanel";
 import Button from "@/app/components/Button";
 
-const LeftPanel = ({
+const RightPanel = ({
   rightCity,
   displayTemperature,
   rightIcon,
@@ -69,4 +69,4 @@ const LeftPanel = ({
     </div>
   );
 };
-export default LeftPanel;
+export default RightPanel;
