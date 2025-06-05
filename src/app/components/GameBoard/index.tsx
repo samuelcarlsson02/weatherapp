@@ -224,13 +224,13 @@ export function GameBoard({
   }, [geoBlock]);
 
   useEffect(() => {
-    if (rightCity) {
+    if (rightCity && !rightCityImage) {
       changeRightCityImage();
     }
   }, [rightCity]);
 
   useEffect(() => {
-    if (leftCity) {
+    if (leftCity && !leftCityImage) {
       changeLeftCityImage();
     }
   }, [leftCity]);
@@ -239,10 +239,8 @@ export function GameBoard({
     setRightCityImage("");
     setLeftCityImage("");
     setLeftCity("");
-    setRightCity("");
     loadCityList();
     currentWeatherPostion();
-    setCurrentWeatherFromRandomCity("right");
     setDisplayTemp(null);
     setIsCorrect(false);
     setIsAnimating(false);
