@@ -34,6 +34,10 @@ export function GameBoard({
   const [leftCityImage, setLeftCityImage] = useState("");
   const [rightCityImage, setRightCityImage] = useState("");
   const [geoBlock, setGeoBlock] = useState<boolean | null>(null);
+  const [nextRightCityImage, setNextRightCityImage] = useState("");
+  const [nextRightCity, setNextRightCity] = useState("");
+  const [nextRightTemperature, setNextRightTemperature] = useState(0);
+  const [nextRightIcon, setNextRightIcon] = useState("");
 
   const handleClick = async (direction: string) => {
     let correct = null;
@@ -96,13 +100,18 @@ export function GameBoard({
         setIsResetting(true);
         setIsAnimating(false);
         setIsCorrect(false);
+
         setLeftTemperature(rightTemperature);
         setLeftIcon(rightIcon);
         setLeftCity(rightCity);
         setLeftCityImage(rightCityImage);
-        setRightCity("");
-        setRightCityImage("");
-        setCurrentWeatherFromRandomCity("right");
+
+        setRightCity(nextRightCity);
+        setRightTemperature(nextRightTemperature);
+        setRightIcon(nextRightIcon);
+        setRightCityImage(nextRightCityImage);
+        preloadNextRightCity();
+
         setDisplayTemp(null);
         setAnswerResult(null);
         resolve(true);
@@ -204,6 +213,20 @@ export function GameBoard({
     setLeftCityImage(leftImage);
   };
 
+  const preloadNextRightCity = async () => {
+    const nextRandomSelection = Math.floor(Math.random() * cityList.length);
+    const nextRandomCity = cityList[nextRandomSelection];
+    cityList.splice(nextRandomSelection, 1);
+
+    const result = await getCurrentWeatherFromCity(nextRandomCity, "en");
+    setNextRightCity(result.name);
+    setNextRightTemperature(result.temp_c);
+    setNextRightIcon(result.icon);
+
+    const nextImage = await getCityImage(result.name);
+    setNextRightCityImage(nextImage);
+  };
+
   useEffect(() => {
     const storedHighscore = Number(localStorage.getItem("highscore"));
     setHighscore(storedHighscore);
@@ -235,12 +258,25 @@ export function GameBoard({
     }
   }, [leftCity]);
 
+  useEffect(() => {
+    if (rightCityImage && cityList.length > 1) {
+      preloadNextRightCity();
+    }
+  }, [rightCityImage, cityList]);
+
   const resetGame = () => {
     setRightCityImage("");
     setLeftCityImage("");
+    setNextRightCityImage("");
+    setNextRightCity("");
+    setNextRightTemperature(0);
+    setNextRightIcon("");
     setLeftCity("");
     loadCityList();
     currentWeatherPostion();
+    if (geoBlock) {
+      setCurrentWeatherFromRandomCity("left");
+    }
     setDisplayTemp(null);
     setIsCorrect(false);
     setIsAnimating(false);
@@ -306,6 +342,8 @@ export function GameBoard({
         buttonTwoOnClick={() => handleClick("lower")}
         buttonTwoLabel="↓ Lower"
         rightCityImage={rightCityImage}
+        nextRightCityImage={nextRightCityImage}
+        nextRightCity={nextRightCity}
         isCorrect={isCorrect}
         isResetting={isResetting}
         isAnimating={isAnimating}

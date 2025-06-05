@@ -14,13 +14,15 @@ const RightPanel = ({
   buttonTwoOnClick,
   buttonTwoLabel,
   rightCityImage,
+  nextRightCityImage,
+  nextRightCity,
   isCorrect,
   isResetting,
   isAnimating,
 }: RightPanelProps) => {
   return (
     <div
-      className={`relative w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg
+      className={`relative w-full h-full flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow-lg overflow-hidden
                     ${
                       isResetting
                         ? "transition-none"
@@ -32,6 +34,16 @@ const RightPanel = ({
                         : ""
                     }`}
     >
+      {nextRightCityImage && (
+        <Image
+          src={nextRightCityImage}
+          alt={nextRightCity}
+          fill
+          className="object-cover w-full h-full rounded-lg"
+          priority
+        />
+      )}
+      
       {rightCityImage && (
         <Image
           src={rightCityImage}

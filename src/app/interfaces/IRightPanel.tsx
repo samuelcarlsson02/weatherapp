@@ -12,4 +12,6 @@ export interface RightPanelProps {
   isCorrect: boolean;
   isResetting: boolean;
   isAnimating: boolean;
+  nextRightCityImage?: string;
+  nextRightCity: string;
 }
