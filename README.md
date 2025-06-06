@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## weatherapp
+Detta är ett projekt i kursen Flerplattformsapplikationer DA395A. Projektet är ett väderspel inspirerat av “Higher or Lower” där man ska gissa om temperaturen är högre eller lägre i olika städer. Spelet är byggt i React med Next.js, TypeScript, Tailwind och använder Geolocation samt Localstorage. Det använder två APIer, WeatherAPI för väderrelaterad information om städerna och Pexels för bilder på städerna.
 
-## Getting Started
+## Redan bekanta med React
+Vi har redan en praktisk erfarenhet av React, vilket gör att vi kan sätta igång direkt utan att behöva lära oss grunderna. Detta passade oss väldigt bra då vi har ett ganska pressat schema med skrivandet av kandidatuppsatsen parallellt och därmed sparar vi mycket tid.  
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Störst på arbetsmarknaden, större än både Angular och Vue
+En genomgång av Devjobsscanner.com visade att av 250 000 front-end jobbannonser visar att React dominerar jobbmarknaden 126 000 annonser (cirka 52%), medan Angular landar på 87 000 och Vue på 24 000 [1].
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Varför React över Angular?
+Enligt Index.dev har React en mycket snabbare inlärningskurva och är mer anpassningsbar än Angular. React komponent-modell påminner lite om objektorienterad programmering vilket vi har goda kunskaper i redan, medan Angular är ett mer omfattande ramverk som kräver en betydligt längre upplärning. Dessutom är React modulärt. Vi kan plocka de verktyg som passar oss bäst, medan Angular levererar ett mer “allt i ett paket” som då är mer anpassat för stora projekt [2].
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Varför React över Vue?
+Vi valde React över Vue därför att det ger oss en mer långsiktig trygghet än Vue. React har ett välfinansierat ekosystem tack vare att Meta driver ramverket. Vue, däremot, är huvudsakligen ett community-drivet projekt utan en större företagsbackning. Framtida finansiering och utveckling vilar därför på donationer/sponsorer och frivilliga insatser, vilket gör den långsiktiga underhållssäkerheten mer osäker [3].
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[1] https://www.devjobsscanner.com/blog/the-most-demanded-frontend-frameworks/ 
+[2] https://www.index.dev/blog/react-vs-angular-which-frontend-framework-is-right-for-your-project 
+[3] https://strapi.io/blog/vue-vs-react
