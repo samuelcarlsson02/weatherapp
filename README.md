@@ -16,5 +16,7 @@ Enligt Index.dev har React en mycket snabbare inlärningskurva och är mer anpas
 Vi valde React över Vue därför att det ger oss en mer långsiktig trygghet än Vue. React har ett välfinansierat ekosystem tack vare att Meta driver ramverket. Vue, däremot, är huvudsakligen ett community-drivet projekt utan en större företagsbackning. Framtida finansiering och utveckling vilar därför på donationer/sponsorer och frivilliga insatser, vilket gör den långsiktiga underhållssäkerheten mer osäker [3].
 
 [1] https://www.devjobsscanner.com/blog/the-most-demanded-frontend-frameworks/ 
+
 [2] https://www.index.dev/blog/react-vs-angular-which-frontend-framework-is-right-for-your-project 
+
 [3] https://strapi.io/blog/vue-vs-react
