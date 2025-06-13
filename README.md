@@ -10,10 +10,11 @@ Detta är ett projekt i kursen Flerplattformsapplikationer DA395A. Projektet är
 6. Skapa en variable i .env som heter NEXT_PUBLIC_PEXELS_API_KEY
 7. Hämta en API-nyckel från [Pexels](https://www.pexels.com/join-contributor/?redirect_to=%2F)
 8. Sätt NEXT_PUBLIC_PEXELS_API_KEY = din Pexels-nyckel
-9. Kör "npm install" i konsolen för kärnmappen
-10. Kör sen "npm run dev" i konsolen för kärnmappen
-11. Öppna den localhost som konsolen visar
-12. Sen är det bara att leka runt!
+9. Se till att du har senaste versionen av [Node.js] (https://nodejs.org/en/download)
+10. Kör "npm install" i konsolen för kärnmappen
+11. Kör sedan "npm run dev" i konsolen för kärnmappen
+12. Öppna den localhost som konsolen visar
+13. Sedan är det bara att leka runt!
 
 ## Redan bekanta med React
 Vi har redan en praktisk erfarenhet av React, vilket gör att vi kan sätta igång direkt utan att behöva lära oss grunderna. Detta passade oss väldigt bra då vi har ett ganska pressat schema med skrivandet av kandidatuppsatsen parallellt och därmed sparar vi mycket tid.  
