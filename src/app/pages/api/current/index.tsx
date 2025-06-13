@@ -2,9 +2,11 @@ export const getCurrentWeatherFromCity = async (
   searchTerm: string,
   lan: string
 ) => {
-  const response = await fetch(
-    `https://api.weatherapi.com/v1/current.json?q=${searchTerm}&lang=${lan}&key=${process.env.NEXT_PUBLIC_WEATHERAPI_KEY}`
-  );
+  const city =
+    searchTerm && searchTerm !== undefined ? searchTerm : "Stockholm";
+
+  const url = `https://api.weatherapi.com/v1/current.json?q=${city}&lang=${lan}&key=${process.env.NEXT_PUBLIC_WEATHERAPI_KEY}`;
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error("Failed to fetch data");
