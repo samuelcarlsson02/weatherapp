@@ -3,16 +3,16 @@ Detta är ett projekt i kursen Flerplattformsapplikationer DA395A. Projektet är
 
 ## Hur du kör Weatherapp
 1. Ladda ner projektet
-2. Skapa en .env fil i kärnmappen (watherapp om du inte har döpt om den)
-3. Skapa en variable i .env som heter "NEXT_PUBLIC_WEATHERAPI_KEY"
+2. Skapa en fil som heter .env i kärnmappen (watherapp om du inte har döpt om den)
+3. Skapa en variable i .env som heter NEXT_PUBLIC_WEATHERAPI_KEY
 4. Hämta en API-nyckel från [WeatherAPI](https://www.weatherapi.com/signup.aspx)
-5. Sätt "NEXT_PUBLIC_WEATHERAPI_KEY" till din Weather-nyckel
-6. Skapa en variable i .env som heter "NEXT_PUBLIC_PEXELS_API_KEY"
+5. Sätt NEXT_PUBLIC_WEATHERAPI_KEY = din WeatherAPI-nyckel
+6. Skapa en variable i .env som heter NEXT_PUBLIC_PEXELS_API_KEY
 7. Hämta en API-nyckel från [Pexels](https://www.pexels.com/join-contributor/?redirect_to=%2F)
-8. Sätt "NEXT_PUBLIC_PEXELS_API_KEY" till din Pexels-nyckel
+8. Sätt NEXT_PUBLIC_PEXELS_API_KEY = din Pexels-nyckel
 9. Kör "npm install" i konsolen för kärnmappen
 10. Kör sen "npm run dev" i konsolen för kärnmappen
-11. Öppna den localhosten som konsolen säger
+11. Öppna den localhost som konsolen visar
 12. Sen är det bara att leka runt!
 
 ## Redan bekanta med React
