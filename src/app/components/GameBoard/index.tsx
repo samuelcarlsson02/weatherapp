@@ -292,6 +292,22 @@ export function GameBoard({
       {geoBlock === null && (
         <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 animate-fade-in"></div>
       )}
+      {rightCityImage === "" && (
+        <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 animate-fade-in">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white"></div>
+            <p className="text-white text-lg font-medium">Loading cities...</p>
+          </div>
+        </div>
+      )}
+      {leftCityImage === "" && (
+        <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 animate-fade-in">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white"></div>
+            <p className="text-white text-lg font-medium">Loading cities...</p>
+          </div>
+        </div>
+      )}
       {answerResult && (
         <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 animate-fade-in">
           <Image
